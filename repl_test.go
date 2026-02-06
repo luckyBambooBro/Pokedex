@@ -1,3 +1,4 @@
+
 package main
 
 import "testing"
@@ -8,16 +9,28 @@ func TestCleanInput(t *testing.T) {
 		expected []string
 	}{
 		{
-			input: "Hello World!",
-			expected: []string{"Hello", "World!"},
+			input: " Hello,    World!  ",
+			expected: []string{"hello,", "world!"},
 		},
 		{
-			input: "gotta catch em' all!",
-			expected: []string{"gotta", "catch", "em'", "all"},
+			input: "goTtA caTch em' aLl!",
+			expected: []string{"gotta", "catch", "em'", "all!"},
 		},
 		{
 			input: "",
-			expected: []string{""},
+			expected: []string{},
+		},
+				{
+			input: "      ",
+			expected: []string{},
+		},
+						{
+			input: "	",
+			expected: []string{},
+		},
+		{
+			input: "Charmander Bulbasaur PIKACHU",
+			expected: []string{"charmander", "bulbasaur", "pikachu"},
 		},
 	}
 

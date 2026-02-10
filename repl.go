@@ -12,17 +12,18 @@ func cleanInput(text string) []string {
 	return words
 }
 
-func exitCommand() error {
+func commandExit() error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil
 }
 
-func helpCommand() error {
+func commandHelp() error {
 	fmt.Printf(`Welcome to the Pokedex!
 Usage: 
 
 `)
+	commands := getCommands()
 	for _, v := range commands {
 		fmt.Printf("%s: %s\n", v.name, v.description)
 	}
@@ -35,15 +36,17 @@ type cliCommand struct {
 	callback    func() error
 }
 
-var commands = map[string]cliCommand{
-	"help": {
-		name:        "help",
-		description: "displays help menu for user",
-		callback:    helpCommand,
-	},
-	"exit": {
-		name:        "exit",
-		description: "Exit the Pokedex",
-		callback:    exitCommand,
-	},
+func getCommands() map[string]cliCommand {
+	return map[string]cliCommand{
+		"help": {
+			name:        "help",
+			description: "displays help menu for user",
+			callback:    commandHelp,
+		},
+		"exit": {
+			name:        "exit",
+			description: "Exit the Pokedex",
+			callback:    commandExit,
+		},
+	}
 }

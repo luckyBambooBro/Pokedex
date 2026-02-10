@@ -14,10 +14,17 @@ func main() {
 		if scanner.Scan() {
 			userInput := scanner.Text()
 			userInput = cleanInput(userInput)[0]
-			fmt.Printf("Your command was: %s \n", userInput)
+			found := false
+			for k, v := range commands {
+				if userInput == k {
+					found = true
+					v.callback()
+					break
+				}
+			}
+			if !found {
+				fmt.Println("unknown command")
+			}
 		}
 	}
 }
-
-
-

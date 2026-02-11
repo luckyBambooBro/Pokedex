@@ -1,34 +1,50 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"strings"
 )
 
+func startRepl() {
+	scanner := bufio.NewScanner(os.Stdin)
+	for {
+		fmt.Print("Pokedex > ")
+		if !scanner.Scan() {
+			continue
+		}
+
+		userInput := scanner.Text()
+		//refine the input and capture the first word
+		firstWord := cleanInput(userInput)
+		if len(firstWord) == 0 {
+			continue
+		}
+		//obtain first word only
+		commandName := firstWord[0]
+		//if input is a legitimate command, call the callback function
+		command, ok := getCommands()[commandName];
+		if ok {
+			err := command.callback()
+			if err != nil {
+				fmt.Println(err)
+			}
+		} else {
+			fmt.Println("Unknown command")
+			continue
+		}
+	}
+
+}
+
+//lowercases input and strips whitespace
 func cleanInput(text string) []string {
 	lowerCase := strings.ToLower(text)
 	words := strings.Fields(lowerCase)
 	return words
 }
 
-func commandExit() error {
-	fmt.Println("Closing the Pokedex... Goodbye!")
-	os.Exit(0)
-	return nil
-}
-
-func commandHelp() error {
-	fmt.Printf(`Welcome to the Pokedex!
-Usage: 
-
-`)
-	commands := getCommands()
-	for _, v := range commands {
-		fmt.Printf("%s: %s\n", v.name, v.description)
-	}
-	return nil
-}
 
 type cliCommand struct {
 	name        string

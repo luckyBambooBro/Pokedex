@@ -7,8 +7,9 @@ import (
 	"strings"
 )
 
-func startRepl() {
+func startRepl(config *configStruct) {
 	scanner := bufio.NewScanner(os.Stdin)
+
 	for {
 		fmt.Print("Pokedex > ")
 		if !scanner.Scan() {
@@ -24,9 +25,9 @@ func startRepl() {
 		//obtain first word only
 		commandName := firstWord[0]
 		//if input is a legitimate command, call the callback function
-		command, ok := getCommands()[commandName];
+		command, ok := getCommands()[commandName]
 		if ok {
-			err := command.callback()
+			err := command.callback(config)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -38,18 +39,17 @@ func startRepl() {
 
 }
 
-//lowercases input and strips whitespace
+// lowercases input and strips whitespace
 func cleanInput(text string) []string {
 	lowerCase := strings.ToLower(text)
 	words := strings.Fields(lowerCase)
 	return words
 }
 
-
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*configStruct) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -65,9 +65,9 @@ func getCommands() map[string]cliCommand {
 			callback:    commandExit,
 		},
 		"map": {
-			name: 		"map",
+			name:        "map",
 			description: "List the location areas of the Pokeon World",
-			callback: 	commandMap,
+			callback:    commandMap,
 		},
 	}
 }

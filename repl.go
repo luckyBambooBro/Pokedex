@@ -69,5 +69,10 @@ func getCommands() map[string]cliCommand {
 			description: "List the location areas of the Pokeon World",
 			callback:    commandMap,
 		},
+		"mapb": {
+			name:        "map",
+			description: "View previous page of the location areas of the Pokeon World",
+			callback:    commandMapB,
+		},
 	}
 }

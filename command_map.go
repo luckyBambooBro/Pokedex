@@ -11,7 +11,7 @@ import (
 func commandMap(config *configStruct) error {
 	//set starting URL
 	url := ""
-	if config.startURL != "" {
+	if config.next == "" {
 		url = config.startURL
 	} else {
 		url = config.next 
@@ -44,7 +44,7 @@ func commandMap(config *configStruct) error {
 	}
 	
 	//update url to increment map page for next function call to call the next page of 20 results
-	config.startURL = ""
+	config.previous = apiResponse.Previous
 	config.next = apiResponse.Next
 	return nil
 }

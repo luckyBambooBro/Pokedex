@@ -1,10 +1,10 @@
 package main
 
 func main() {
-	config := configStruct{
+	cfg := config{
 		startURL: "https://pokeapi.co/api/v2/location-area/",
 		next: "",
 		previous: "",
 	}
-	startRepl(&config)
+	startRepl(&cfg)
 }

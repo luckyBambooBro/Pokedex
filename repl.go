@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func startRepl(config *configStruct) {
+func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for {
@@ -27,7 +27,7 @@ func startRepl(config *configStruct) {
 		//if input is a legitimate command, call the callback function
 		command, ok := getCommands()[commandName]
 		if ok {
-			err := command.callback(config)
+			err := command.callback(cfg)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -49,7 +49,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*configStruct) error
+	callback    func(*config) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -70,7 +70,7 @@ func getCommands() map[string]cliCommand {
 			callback:    commandMap,
 		},
 		"mapb": {
-			name:        "map",
+			name:        "mapb",
 			description: "View previous page of the location areas of the Pokeon World",
 			callback:    commandMapB,
 		},

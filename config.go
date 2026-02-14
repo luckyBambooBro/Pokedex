@@ -1,6 +1,6 @@
 package main
 
-type configStruct struct {
+type config struct {
 	startURL string
 	next     string
 	previous string

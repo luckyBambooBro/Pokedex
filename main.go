@@ -1,8 +1,10 @@
 package main
 
+import "github.com/luckybamboobro/pokedex/internal/pokeapi"
+
 func main() {
 	cfg := config{
-		startURL: "https://pokeapi.co/api/v2/location-area/",
+		pokeApiClient: pokeapi.NewClient(clientTimeout),
 		next: "",
 		previous: "",
 	}

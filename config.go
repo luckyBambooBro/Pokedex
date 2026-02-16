@@ -1,11 +1,12 @@
 package main
 
-import "github.com/luckybamboobro/pokedex/internal/pokeapi"
-
+import (
+	"github.com/luckybamboobro/pokedex/internal/pokeapi"
+	"time"
+)
 const 
 (
-	pokeLocationAreaUrl = "https://pokeapi.co/api/v2/location-area/"
-	clientTimeout = 5
+	clientTimeout = 5 * time.Second
 )
 
 type config struct {

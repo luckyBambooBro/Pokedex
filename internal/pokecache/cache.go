@@ -15,3 +15,13 @@ type cacheEntry struct {
 	val []byte
 }
 
+func NewCache(interval time.Duration) *Cache {
+	return &Cache {
+		cachedData: make(map[string]cacheEntry),
+		mu: sync.Mutex{},
+	}
+}
+
+func (c *Cache) Add(key string, value []byte) {
+	
+}

@@ -27,7 +27,7 @@ func (c *Client) ClientRequest(url string) (ApiStruct, error) {
 		return ApiStruct{}, fmt.Errorf("http.Client.Do error, unable to create http request: %w", err)
 	}
 	
-	// dont close if returning resp: defer resp.Body.Close()
+	defer resp.Body.Close()
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return ApiStruct{}, fmt.Errorf("unable to read http response body: %w", err)

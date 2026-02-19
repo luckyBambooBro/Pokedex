@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 
-func commandMap(c *config) error {
-	locationResp, err := c.pokeApiClient.ClientRequest(c.next)
+func commandMap(cfg *config) error {
+	locationResp, err := cfg.pokeApiClient.ClientRequest(cfg.next)
 	if err != nil {
 		return err
 	}
@@ -12,17 +12,17 @@ func commandMap(c *config) error {
 	for _, item := range locationResp.Results {
 		fmt.Println(item.Name)
 	}
-	c.next = locationResp.Next
-	c.previous = locationResp.Previous 
+	cfg.next = locationResp.Next
+	cfg.previous = locationResp.Previous 
 	return nil
 }
 
-func commandMapb(c *config) error {
-	if c.previous == "" {
+func commandMapb(cfg *config) error {
+	if cfg.previous == "" {
 		fmt.Println("you're on the first page")
 		return nil
 	}
-	locationResp, err := c.pokeApiClient.ClientRequest(c.previous)
+	locationResp, err := cfg.pokeApiClient.ClientRequest(cfg.previous)
 	if err != nil {
 		return err
 	}
@@ -30,7 +30,7 @@ func commandMapb(c *config) error {
 	for _, item := range locationResp.Results {
 		fmt.Println(item.Name)
 	}
-	c.next = locationResp.Next
-	c.previous = locationResp.Previous 
+	cfg.next = locationResp.Next
+	cfg.previous = locationResp.Previous 
 	return nil
 }

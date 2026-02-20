@@ -21,9 +21,8 @@ func NewCache(interval time.Duration) *Cache {
 	c := &Cache {
 		cachedData: make(map[string]cacheEntry),
 		mu: sync.RWMutex{},
-		interval: interval,
 	}
-	go c.reapLoop()
+	go c.reapLoop(interval)
 	return c
 }
 
@@ -51,8 +50,8 @@ func (c *Cache) Get(key string) ([]byte, bool) {
 }
 
 // ======== Methods to delete caches ========
-func (c *Cache) reapLoop() {
-	ticker := time.NewTicker(c.interval)
+func (c *Cache) reapLoop(interval time.Duration) {
+	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
 	for range ticker.C {
 		c.reap()
@@ -63,7 +62,7 @@ func (c *Cache) reap() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	for k, v := range c.cachedData {
-		elapsedTime := time.Since(v.createdAt)
+		elapsedTime := time.Since(v.createdAt) //lessons solution passed in time.Time from reaploop() and subtracted interval from it, then compared to v.createdAt
 		if elapsedTime >= c.interval {
 			delete(c.cachedData,k)
 		}

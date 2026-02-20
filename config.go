@@ -7,7 +7,7 @@ import (
 const 
 (
 	clientTimeout = 5 * time.Second
-	cacheInterval = 5 * time.Second
+	cacheInterval = 5 * time.Minute
 )
 
 type config struct {

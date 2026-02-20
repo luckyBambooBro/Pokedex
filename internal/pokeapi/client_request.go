@@ -45,7 +45,6 @@ func (c *Client) ClientRequest(url string) (ApiStruct, error) {
 		resp.Body.Close()
 	}
 
-
 	//unmarshal the data and return in the form of an ApiStruct 
 	locationResp := ApiStruct{}
 	if err := json.Unmarshal(data, &locationResp); err != nil {

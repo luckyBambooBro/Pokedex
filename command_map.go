@@ -3,7 +3,15 @@ package main
 import "fmt"
 
 
+
+const baseURL = "https://pokeapi.co/api/v2/location-area/"
+
 func commandMap(cfg *config) error {
+	//set default starting url if none provided
+	if cfg.next == "" {
+		cfg.next = baseURL
+	}
+	//send request
 	locationResp, err := cfg.pokeApiClient.ClientRequest(cfg.next)
 	if err != nil {
 		return err

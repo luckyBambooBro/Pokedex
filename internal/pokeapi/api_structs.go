@@ -1,14 +1,14 @@
 package pokeapi
 
-// struct to capture apiStruct via http.Get()
-type ApiStruct struct {
+// struct for http.Get for locationArea data from API when location ID/name not supplied in URL. Returns data of 20 location areas in Results field
+type LocationAreaGeneral struct {
 	Count    int          `json:"count"`
 	Next     string       `json:"next"`
 	Previous string       `json:"previous"`
 	Results  []NameAndUrl `json:"results"`
 }
 
-// struct to capture json data. fields may have nested structs to capture structured data, there is one anonymous struct
+// struct for individual Location Areas when ID/name suppled in URL. fields may have nested structs to capture structured data, there is one anonymous struct
 // at the bottom due to single use and to keep it clean
 type LocationArea struct {
 	Id                   int                   `json:"id"`

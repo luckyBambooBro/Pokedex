@@ -18,22 +18,28 @@ func startRepl(cfg *config) {
 
 		userInput := scanner.Text()
 		//refine the input and capture the first word
-		firstWord := cleanInput(userInput)
-		if len(firstWord) == 0 {
+		cleanedInput := cleanInput(userInput)
+		if len(cleanedInput) == 0 {
 			continue
 		}
-		//obtain first word only
-		commandName := firstWord[0]
+
+		//check for "explore" firstword
+		if cleanedInput[0] == "explore" {
+			explore(cfg, cleanedInput[1])
+		} else {
+			//if explore is not the first word, obtain first word only, then run one of the other commands
+		commandName := cleanedInput[0]
 		//if input is a legitimate command, call the callback function
 		command, ok := getCommands()[commandName]
 		if ok {
-			err := command.callback(cfg)
+			err := command.callback(cfg, "")
 			if err != nil {
 				fmt.Println(err)
 			}
 		} else {
 			fmt.Println("Unknown command")
 			continue
+		}
 		}
 	}
 
@@ -49,7 +55,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(c *config, argument string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -73,6 +79,11 @@ func getCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "View the previous list the location areas of the Pokeon World",
 			callback:    commandMapb,
+		},
+			"explore": {
+			name:        "explore",
+			description: "View an explored location area via name/ID url",
+			callback:    explore,
 		},
 	}
 }

@@ -4,12 +4,13 @@ import "fmt"
 
 func explore(cfg *config, url string) error {
 	if url == "" {
-		fmt.Println("Invalid url")
+		fmt.Println("Invalid location area name")
 		return nil
 	}
 	url = baseURL + url
 	locationResp, err := cfg.pokeApiClient.LocationAreaRequest(url)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	if locationResp.PokemonEncounters == nil {

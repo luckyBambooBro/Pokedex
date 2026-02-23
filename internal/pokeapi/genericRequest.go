@@ -27,6 +27,9 @@ func genericRequest[T pokeStruct](c *Client, url string) (T, error) {
 		defer resp.Body.Close()
 
 		if resp.StatusCode > 299 {
+			if resp.StatusCode == 404 {
+				return zero, fmt.Errorf("Pokemon location does not exist")
+			}
 			return zero, fmt.Errorf("response failed with status code: %d", resp.StatusCode)
 		}
 

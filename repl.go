@@ -25,7 +25,12 @@ func startRepl(cfg *config) {
 
 		//check for "explore" firstword
 		if cleanedInput[0] == "explore" {
-			explore(cfg, cleanedInput[1])
+			if len(cleanedInput) < 2 {
+				fmt.Println("invalid url")
+			} else {
+				explore(cfg, cleanedInput[1])
+			}
+
 		} else {
 			//if explore is not the first word, obtain first word only, then run one of the other commands
 		commandName := cleanedInput[0]

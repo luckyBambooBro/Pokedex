@@ -2,12 +2,12 @@ package main
 
 import "fmt"
 
-func explore(cfg *config, url string) error {
-	if url == "" {
+func explore(cfg *config, args ...string) error {
+	if len(args) != 1 {
 		fmt.Println("Invalid location area name")
 		return nil
 	}
-	url = baseURL + url
+	url := args[0]
 	locationResp, err := cfg.pokeApiClient.LocationAreaRequest(url)
 	if err != nil {
 		fmt.Println(err)

@@ -32,7 +32,7 @@ func startRepl(cfg *config) {
 		//if input is a legitimate command, call the callback function
 		command, ok := getCommands()[commandName]
 		if ok {
-			err := command.callback(cfg, args)
+			err := command.callback(cfg, args...)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -55,7 +55,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(c *config, argument []string) error
+	callback    func(c *config, argument ...string) error
 }
 
 func getCommands() map[string]cliCommand {

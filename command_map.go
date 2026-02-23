@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func commandMap(cfg *config, argument string) error {
+func commandMap(cfg *config, argument ...string) error {
 	//set default starting url if none provided
 	if cfg.next == "" {
 		cfg.next = baseURL
@@ -21,7 +21,7 @@ func commandMap(cfg *config, argument string) error {
 	return nil
 }
 
-func commandMapb(cfg *config, argument string) error {
+func commandMapb(cfg *config, argument ...string) error {
 	if cfg.previous == "" {
 		fmt.Println("you're on the first page")
 		return nil

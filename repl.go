@@ -22,22 +22,17 @@ func startRepl(cfg *config) {
 		if len(cleanedInput) == 0 {
 			continue
 		}
-
-		//check for "explore" firstword
-		if cleanedInput[0] == "explore" {
-			if len(cleanedInput) < 2 {
-				fmt.Println("invalid url")
-			} else {
-				explore(cfg, cleanedInput[1])
-			}
-
-		} else {
-			//if explore is not the first word, obtain first word only, then run one of the other commands
+		
+		//if explore is not the first word, obtain first word only, then run one of the other commands
 		commandName := cleanedInput[0]
+		args := []string{}
+		if len(cleanedInput) > 1 {
+			args = cleanedInput[1:]
+		}
 		//if input is a legitimate command, call the callback function
 		command, ok := getCommands()[commandName]
 		if ok {
-			err := command.callback(cfg, "")
+			err := command.callback(cfg, args)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -45,7 +40,7 @@ func startRepl(cfg *config) {
 			fmt.Println("Unknown command")
 			continue
 		}
-		}
+		
 	}
 
 }
@@ -60,7 +55,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(c *config, argument string) error
+	callback    func(c *config, argument []string) error
 }
 
 func getCommands() map[string]cliCommand {

@@ -3,9 +3,10 @@ package main
 import "fmt"
 
 func commandMap(cfg *config, argument ...string) error {
+	urlSection := "location-area/"
 	//set default starting url if none provided
 	if cfg.next == "" {
-		cfg.next = baseURL
+		cfg.next = baseURL + urlSection
 	}
 	//send request
 	locationResp, err := cfg.pokeApiClient.RequestGeneralLocationArea(cfg.next)

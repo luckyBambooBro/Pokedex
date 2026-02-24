@@ -7,8 +7,8 @@ func commandExplore(cfg *config, args ...string) error {
 		fmt.Println("Invalid location area name")
 		return nil
 	}
-	url := args[0]
-	locationResp, err := cfg.pokeApiClient.LocationAreaRequest(url)
+	url := baseURL + args[0]
+	locationResp, err := cfg.pokeApiClient.RequestLocationArea(url)
 	if err != nil {
 		fmt.Println(err)
 		return err
@@ -17,7 +17,7 @@ func commandExplore(cfg *config, args ...string) error {
 		fmt.Println("There are no pokemon in this location")
 		return nil
 	}
-	for _, pokemon := range	locationResp.PokemonEncounters {
+	for _, pokemon := range locationResp.PokemonEncounters {
 		fmt.Println(pokemon.Pokemon.Name)
 	}
 	return nil

@@ -75,15 +75,20 @@ func getCommands() map[string]cliCommand {
 			description: "List the location areas of the Pokeon World",
 			callback:    commandMap,
 		},
-			"mapb": {
+		"mapb": {
 			name:        "mapb",
 			description: "View the previous list the location areas of the Pokeon World",
 			callback:    commandMapb,
 		},
-			"explore": {
+		"explore": {
 			name:        "explore",
 			description: "View an explored location area via name/ID url",
 			callback:    commandExplore,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Attempt to catch [pokemon name]",
+			callback:    commandCatch,
 		},
 	}
 }

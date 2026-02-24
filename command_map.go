@@ -8,7 +8,7 @@ func commandMap(cfg *config, argument ...string) error {
 		cfg.next = baseURL
 	}
 	//send request
-	locationResp, err := cfg.pokeApiClient.GeneralLocationAreaRequest(cfg.next)
+	locationResp, err := cfg.pokeApiClient.RequestGeneralLocationArea(cfg.next)
 	if err != nil {
 		return err
 	}
@@ -26,7 +26,7 @@ func commandMapb(cfg *config, argument ...string) error {
 		fmt.Println("you're on the first page")
 		return nil
 	}
-	locationResp, err := cfg.pokeApiClient.GeneralLocationAreaRequest(cfg.previous)
+	locationResp, err := cfg.pokeApiClient.RequestGeneralLocationArea(cfg.previous)
 	if err != nil {
 		return err
 	}

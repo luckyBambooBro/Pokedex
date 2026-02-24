@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func explore(cfg *config, args ...string) error {
+func commandExplore(cfg *config, args ...string) error {
 	if len(args) != 1 {
 		fmt.Println("Invalid location area name")
 		return nil

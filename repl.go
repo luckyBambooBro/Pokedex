@@ -83,7 +83,7 @@ func getCommands() map[string]cliCommand {
 			"explore": {
 			name:        "explore",
 			description: "View an explored location area via name/ID url",
-			callback:    explore,
+			callback:    commandExplore,
 		},
 	}
 }

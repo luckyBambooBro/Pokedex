@@ -41,8 +41,4 @@ func saveToPokedex(cfg *config, caughtPokemon *pokeapi.Pokemon) {
 	if !ok {
 		cfg.pokedex[caughtPokemon.Name] = *caughtPokemon
 	}
-	fmt.Println("Pokemon you have caught in your Pokedex:")
-	for _, pokemon := range cfg.pokedex {
-		fmt.Println(pokemon.Name)
-	}
 }

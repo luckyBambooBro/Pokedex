@@ -11,7 +11,7 @@ func commandInspect(cfg *config, argument ...string) error {
 	//if the pokemon has not been caught
 	pokemonData, ok := cfg.pokedex[pokemon];
 		if !ok {
-			return fmt.Errorf("This pokemon is not in your pokedex! You must catch ", pokemon, " to view data")
+			return fmt.Errorf("This pokemon is not in your pokedex!")
 		}
 	//if the pokemon has been caught
 	printPokemonData(&pokemonData)

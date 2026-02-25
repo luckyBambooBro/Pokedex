@@ -7,12 +7,12 @@ import (
 	"net/http"
 )
 
-func genericRequest[T pokeStruct](cfg *Client, url string) (*T, error) {
+func genericRequest[T pokeStruct](c *Client, url string) (*T, error) {
 	//create zero value for T
 	var zero T
 
 	//check if url is cached
-	data, ok := cfg.cache.Get(url)
+	data, ok := c.cache.Get(url)
 	//if not cached:
 	if !ok {
 		//create request and send with client.Do()
@@ -20,7 +20,7 @@ func genericRequest[T pokeStruct](cfg *Client, url string) (*T, error) {
 		if err != nil {
 			return &zero, fmt.Errorf("unable to create http request: %w", err)
 		}
-		resp, err := cfg.httpClient.Do(req)
+		resp, err := c.httpClient.Do(req)
 		if err != nil {
 			return &zero, fmt.Errorf("http.Client.Do error, unable to create http request: %w", err)
 		}
@@ -38,7 +38,7 @@ func genericRequest[T pokeStruct](cfg *Client, url string) (*T, error) {
 			return &zero, fmt.Errorf("unable to read http response body: %w", err)
 		}
 		//cache the result
-		cfg.cache.Add(url, data)
+		c.cache.Add(url, data)
 		resp.Body.Close()
 	}
 

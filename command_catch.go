@@ -8,12 +8,16 @@ import (
 )
 
 func commandCatch(cfg *config, argument ...string) error {
+	//check and set url
 	if len(argument) == 0 {
 		fmt.Println("Please provide a pokemon name")
+		return nil
 	}
 	url_section := "pokemon/"
 	pokemonName := argument[0]
 	url := baseURL + url_section + pokemonName
+
+	//send http request
 	pokemon, err := cfg.pokeApiClient.RequestPokemon(url)
 	if err != nil {
 		fmt.Println(fmt.Errorf("Error obtaining pokemon data: %w", err))

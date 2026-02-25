@@ -55,7 +55,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(c *config, argument ...string) error
+	callback    func(cfg *config, argument ...string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -89,6 +89,11 @@ func getCommands() map[string]cliCommand {
 			name:        "catch",
 			description: "Attempt to catch [pokemon name]",
 			callback:    commandCatch,
+		},
+		"inspect": {
+			name:        "inspect",
+			description: "View pokemon data from pokedex",
+			callback:    commandInspect,
 		},
 	}
 }
